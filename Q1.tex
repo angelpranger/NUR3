@@ -1,0 +1,22 @@
+\section{Satellite galaxies around a massive central}
+
+\subsection{a}
+
+There is an integrable singularity at limit $x=0$, so an open method must be used to integrate $n(x)$.
+We choose to use the extended midpoint Romberg method (which is Richardson extrapolation applied to midpoint rule).
+
+\lstinputlisting{Q1.py}
+
+\lstinputlisting{Q1.txt}
+
+\begin{align*}
+    \int\int\int_V n(x)\text{d}V &= \int\int\int n(x)x^2\sin(\phi)\text{d}\phi\text{d}\theta\text{d}x\\
+    &=4\pi \int n(x)x^2\text{d}x\\
+    &=4\pi \int x^2A\langle N_{sat}\rangle(\frac{x}{b})^{a-3}\exp{-(\frac{x}{b})^c}\text{d}x
+    &=\langle N_{sat}\rangle
+\end{align*}
+
+\begin{align*}
+    4\pi A\int x^2(\frac{x}{b})^{a-3}\exp{-(\frac{x}{b})^c}\text{d}x &= 1\\
+    A&=\frac{1}{4\pi \int x^2(\frac{x}{b})^{a-3}\exp{-(\frac{x}{b})^c}\text{d}x}
+\end{align*}
