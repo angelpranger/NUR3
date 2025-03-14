@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import numpy as np
+import time
 
 k=1.38e-16 # erg/K
 aB = 2e-13 # cm^3 / s
@@ -35,8 +36,8 @@ def bisection_root_step(f, a, b):
 def false_position_method(f, a, b, max_iterations=50, target_abs=0.1, target_rel=1e-10, safeguards=False):
     """Finds the root of a function using the false position method. 
     Stops after max_iterations or when the target accuracy is met.
-    Returns interval a, b enclosing the root."""
-    for _ in range(max_iterations):
+    Returns interval a, b enclosing the root and the number of iterations used."""
+    for steps in range(max_iterations):
         # Save value for f(a) as we need it again later
         f_a = f(a)
         # Linearly estimate root from 2 last guesses (a and b)
@@ -58,7 +59,7 @@ def false_position_method(f, a, b, max_iterations=50, target_abs=0.1, target_rel
                 print('h')
         if (((b-a) < np.absolute(target_rel*a)) | ((b-a) < target_abs)):
             break
-    return a, b
+    return a, b, steps+1
 
 def root_from_interval(f, a, b):
     if (np.absolute(f(a)) < np.absolute(f(b))):
@@ -66,17 +67,23 @@ def root_from_interval(f, a, b):
     else:
         return b
 
-a, b = false_position_method(equilibrium1, 1, 1e7, target_abs=0.1, safeguards=True)
+start = time.time()
+a, b, iterations = false_position_method(equilibrium1, 1, 1e7, target_abs=0.1, safeguards=True)
 print(f"The equilibrium temperature (root) is {root_from_interval(equilibrium1, a, b)} K with an error estimate of {b-a:.3} K.")
+end = time.time()
+print(f"The execution time is {(end-start)*10**3:.3} ms.")
+print(f"The number of iterations used is {iterations}.")
 
 # 2b
 
 print(f"The equilibrium temperature (root) and estimated error are given.")
-print("n_e [cm$^{-3}$]     T_equilibrium [K]     estimated absolute error [K]")
+print("n_e [cm$^{-3}$]     T_equilibrium [K]     estimated absolute error [K]     time [ms]     iterations")
 for n_e in [1e-4, 1, 1e4]:
+    start = time.time()
     func_class = Equilibrium2(n_e)
-    a, b = false_position_method(func_class.equilibrium2, 1, 1e15, target_rel=1e-10, safeguards=True)
-    print(f"{n_e}     {root_from_interval(func_class.equilibrium2, a, b)}     {b-a:.3}")
+    a, b, iterations = false_position_method(func_class.equilibrium2, 1, 1e15, target_rel=1e-10, safeguards=True)
+    end = time.time()
+    print(f"{n_e}     {root_from_interval(func_class.equilibrium2, a, b)}     {b-a:.3}     {(end-start)*10**3:.3}     {iterations}")
 
 
 # TODO try Newton-Raphson method? maybe in combination with false position method
