@@ -2,19 +2,17 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
+# Define constants
 Nsat=100
 a=2.4
 b=0.25
 c=1.6
-
 xmin, xmax = 10**-4, 5
-
-# Test function for differentiation and integration
-def test_func(x):
-    return np.sin(x)+3
 
 class n_class:
     def __init__(self,A,Nsat,a,b,c):
+        """Class for functions n and p, such that the variable information does not
+        have to be passed to them with every call."""
         self.A = A
         self.Nsat = Nsat
         self.a = a
@@ -23,14 +21,40 @@ class n_class:
         pass
 
     def n(self, x):
+        """Returns the value of the function n at x."""
         return self.A*self.Nsat*(x/self.b)**(self.a-3)*np.exp(-(x/self.b)**self.c)
 
     def p(self, x):
+        """Returns the value of the probability p=N/Nsat at x."""
         return 4*np.pi*x**2*self.A*(x/self.b)**(self.a-3)*np.exp(-(x/self.b)**self.c)
-    
+
+class RNG_class:
+    def __init__(self, seed):
+        """Class for random number generator such that the seed is passed once and the current state is remembered."""
+        if (seed < 0):
+            print("The seed for the RNG is invalid.")
+        self.state1 = np.uint64(seed)
+        self.m = np.uint64(4930622455819)
+        self.a = np.uint64(3741260)
+        self.fraction = 1/(self.m-1) # period is m-1
+        pass
+
+    def random(self):
+        """Returns a uniformly random float between (0,1)."""
+        # 64-bit XOR-shift method
+        self.state1 = self.state1^(self.state1>>np.uint64(21))
+        self.state1 = self.state1^(self.state1<<np.uint64(35))
+        self.state1 = self.state1^(self.state1>>np.uint64(4))
+        # Multiple linear congruential generator
+        random = (self.a*self.state1) % self.m
+        # Convert to interval (0,1)
+        random = random * self.fraction
+        return random
+
 # 1a
 
 def integrand(x,a=a,b=b,c=c):
+    """Returns the integrand that is used to compute A."""
     return x**2*((x/b)**(a-3))*np.exp(-(x/b)**c)
 
 def extended_midpoint_Romberg(f, a, b, m=8):
@@ -66,50 +90,32 @@ def extended_midpoint_Romberg(f, a, b, m=8):
             r[j] = (Np*r[j+1]-r[j])*factor
     return r[0], np.absolute(r[0]-r[1])
 
-# Testing integration
-print(f"The test integral and error are {extended_midpoint_Romberg(test_func, 0, 20)}")
-
-# TODO check whether A is correct
+# Compute and print the found value for A
 A = 1/(4*np.pi*extended_midpoint_Romberg(integrand, 0, xmax)[0])
 print(f"A is {A}")
 
 # 1b
 
+# Make object of class for n using the constants including the previously found A
 n1 = n_class(A, Nsat, a, b, c)
-
-class RNG_class:
-    def __init__(self, seed):
-        if (seed < 0):
-            print("The seed for the RNG is invalid.")
-        self.state1 = np.uint64(seed)
-        self.m = np.uint64(4930622455819)
-        self.a = np.uint64(3741260)
-        self.fraction = 1/(self.m-1) # period is m-1
-        pass
-
-    def random(self):
-        """Returns a uniformly random float between (0,1)."""
-        # 64-bit XOR-shift method
-        self.state1 = self.state1^(self.state1>>np.uint64(21))
-        self.state1 = self.state1^(self.state1<<np.uint64(35))
-        self.state1 = self.state1^(self.state1>>np.uint64(4))
-        # Multiple linear congruential generator
-        random = (self.a*self.state1) % self.m
-        # Convert to interval (0,1)
-        random = random * self.fraction
-        return random
     
 # Seed random number generator
 RNG1 = RNG_class(seed = 123456789)
 
 # Testing random number generator
-randoms = np.zeros(100000)
+randoms = np.zeros(10000)
 for i in range(len(randoms)):
     randoms[i] = RNG1.random()
 plt.hist(randoms)
-plt.savefig('hist.pdf')
+plt.title("Test: 10000 random numbers within (0,1)")
+plt.xlabel("Random numbers")
+plt.ylabel("Number")
+plt.savefig('hist.png', dpi=600)
 
 def rejection_sampling(p, xmin, xmax, num):
+    """Takes a probability distribution p, interval bound by xmin and xmax. Samples num random
+    draws from p within range (xmin, xmax) using rejection sampling.
+    Returns array with num samples."""
     samples = np.zeros(num)
     i = 0
     while (i < num):
@@ -126,11 +132,11 @@ samples = rejection_sampling(n1.p, xmin, xmax, 10000)
 # 21 edges of 20 bins in log-space
 edges = 10**np.linspace(np.log10(xmin), np.log10(xmax), 21)
 hist = np.histogram(samples, bins=edges)[0]
-# Correcting for bin width and normalization offset 10000/Nsat=100
-hist_scaled = hist / (edges[1:]-edges[:-1]) * 0.01
-# Getting analytical solution of N(x) for values between xmin and xmax in log space
+# Correcting for bin width and normalization offset 10000
+hist_scaled = hist / (edges[1:]-edges[:-1]) * 0.0001
+# Getting analytical solution of N(x)/Nsat for values between xmin and xmax in log space
 relative_radius = 10**np.linspace(np.log10(xmin), np.log10(xmax), 100)
-analytical_function = n1.p(relative_radius) * Nsat # N(x)
+analytical_function = n1.p(relative_radius) # N(x)/Nsat
 
 # Plotting histogram and analytical solution
 fig1b, ax = plt.subplots()
@@ -138,7 +144,7 @@ ax.stairs(hist_scaled, edges=edges, fill=True, label='Satellite galaxies')
 plt.plot(relative_radius, analytical_function, 'r-', label='Analytical solution')
 ax.set(xlim=(xmin, xmax), ylim=(10**(-3), 10), yscale='log', xscale='log',
        xlabel='Relative radius', ylabel='Number of galaxies')
-ax.legend()
+ax.legend(loc='upper left')
 plt.savefig('my_solution_1b.png', dpi=600)
 
 # 1c
@@ -192,11 +198,18 @@ def quicksort(array):
     return array
 
 def random_samples_from_array(array, num):
+    """Draw num random samples from array according to the following rules:
+    1. Selects every item with equal probability.
+    2. Does not draw any item twice.
+    3. Does not reject any draw.
+    Returns an array with the num drawn samples."""
     samples = np.zeros(num)
     for i in range(num):
         # Draw random integer (index) in [0, N-1] with N the current size of array
         idx = np.int64(np.floor(array.shape[0]*RNG1.random()))
+        # Add this item to the samples
         samples[i] = array[idx]
+        # Remove this item from the original list so as to not draw it again
         array = np.delete(array, idx)
     return samples
 
@@ -216,10 +229,12 @@ plt.savefig('my_solution_1c.png', dpi=600)
 
 def analytical_derivative_n(x,A,Nsat,a,b,c):
     """Returns the value of the analytical derivative of n at the point x."""
-    return -A*Nsat/b**2*(a-3)*c*(x/b)**(a+c-5)*np.exp(-(x/b)**c)
-# TODO is this correct? ik denk het niet...
+    fraction = 1/b
+    return A*Nsat*fraction*((a-3)*(x*fraction)**(a-4)-c*(x*fraction)**(a+c-4))*np.exp(-(x*fraction)**c)
 
 def Ridders_differentiation(f, x, m=5, h=0.1, d=2, target_error=1e-13):
+    """Applies Ridders differentiation on the function f at the point x. 
+    Returns the numerical derivative of f at x together with an estimate of the error."""
     # Calculate first approximations to f'(x) using central differences
     approx = np.zeros(m)
     d_inverse = 1/d
@@ -227,7 +242,6 @@ def Ridders_differentiation(f, x, m=5, h=0.1, d=2, target_error=1e-13):
     for i in range(m):
         approx[i] = (f(x+h)-f(x-h)) * 0.5 / h
         h *= d_inverse
-    print(approx)
     # Combine pairs of approximations
     for j in range(1, m):
         power = np.power(d, 2*j)
@@ -237,21 +251,13 @@ def Ridders_differentiation(f, x, m=5, h=0.1, d=2, target_error=1e-13):
         # Terminate when improvement over previous best approximation is smaller than target error
         error_new = np.absolute(approx[0]-approx[i+1])
         if (error_new < target_error):
-            print('hi')
             return approx[0], error_new
         # Terminate early if the error grows, return best approximation from before
         if (error_old < error_new):
-            print('ho')
             return approx[i+1], error_old
         error_old = error_new
-        print(j)
     return approx[0], error_new
 
+# Compute the analytical and numerical derivatives
 print(f"The analytical derivative of n at x=1 is {analytical_derivative_n(1,A,Nsat,a,b,c)}")
-print(f"The numerical derivative of n at x=1 is {Ridders_differentiation(n1.n,1,m=10,h=0.1)[0]}")
-# TODO check 12 significant digits
-
-# TODO look at increasing m (niet echt nodig...)
-
-
-print(Ridders_differentiation(test_func, 1))
+print(f"The numerical derivative of n at x=1 is {Ridders_differentiation(n1.n,1,m=15,h=0.1)[0]}")
