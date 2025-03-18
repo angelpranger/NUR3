@@ -1,0 +1,8 @@
+The equilibrium temperature (root) is 32539.14137090274 K with an error estimate of 0.0683 K.
+The execution time is 0.211 ms.
+The number of iterations used is 18.
+The equilibrium temperature (root) and estimated error are given.
+n_e [cm$^{-3}$]  T_equilibrium [K]  estimated absolute error [K]  time [ms]  iterations
+0.0001     160647887536815.62     9.61e+03     0.515     36
+1     33861.300235178554     6.55e-11     0.802     57
+10000.0     10525.88601966122     1.82e-12     0.924     57

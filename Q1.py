@@ -132,17 +132,17 @@ samples = rejection_sampling(n1.p, xmin, xmax, 10000)
 # 21 edges of 20 bins in log-space
 edges = 10**np.linspace(np.log10(xmin), np.log10(xmax), 21)
 hist = np.histogram(samples, bins=edges)[0]
-# Correcting for bin width and normalization offset 10000
-hist_scaled = hist / (edges[1:]-edges[:-1]) * 0.0001
+# Correcting for bin width and normalization offset 10000/Nsat=100
+hist_scaled = hist / (edges[1:]-edges[:-1]) * 0.01
 # Getting analytical solution of N(x)/Nsat for values between xmin and xmax in log space
 relative_radius = 10**np.linspace(np.log10(xmin), np.log10(xmax), 100)
-analytical_function = n1.p(relative_radius) # N(x)/Nsat
+analytical_function = n1.p(relative_radius)*Nsat # N(x)
 
 # Plotting histogram and analytical solution
 fig1b, ax = plt.subplots()
 ax.stairs(hist_scaled, edges=edges, fill=True, label='Satellite galaxies')
 plt.plot(relative_radius, analytical_function, 'r-', label='Analytical solution')
-ax.set(xlim=(xmin, xmax), ylim=(10**(-3), 10), yscale='log', xscale='log',
+ax.set(xlim=(xmin, xmax), ylim=(10**(-3), 10**3), yscale='log', xscale='log',
        xlabel='Relative radius', ylabel='Number of galaxies')
 ax.legend(loc='upper left')
 plt.savefig('my_solution_1b.png', dpi=600)
@@ -260,4 +260,4 @@ def Ridders_differentiation(f, x, m=5, h=0.1, d=2, target_error=1e-13):
 
 # Compute the analytical and numerical derivatives
 print(f"The analytical derivative of n at x=1 is {analytical_derivative_n(1,A,Nsat,a,b,c)}")
-print(f"The numerical derivative of n at x=1 is {Ridders_differentiation(n1.n,1,m=15,h=0.1)[0]}")
+print(f"The numerical derivative of n at x=1 is  {Ridders_differentiation(n1.n,1,m=15,h=0.1)[0]}")

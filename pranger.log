@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2025.2.19)  26 FEB 2025 18:39
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2025.2.19)  18 MAR 2025 17:35
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -345,97 +345,93 @@ e
 ))
 \c@lstlisting=\count280
 
-(./1_poisson_distribution.tex (./1_poisson_distribution.py
-LaTeX Font Info:    Trying to load font information for OML+cmr on input line 4
-.
-
-(/usr/share/texlive/texmf-dist/tex/latex/base/omlcmr.fd
+(./Q1.tex (./Q1.py
+LaTeX Font Info:    Trying to load font information for OML+cmr on input line 3
+4.
+ (/usr/share/texlive/texmf-dist/tex/latex/base/omlcmr.fd
 File: omlcmr.fd 2019/12/16 v2.5j Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <8> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 4.
- [1
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 34.
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-LaTeX Font Info:    Trying to load font information for OMS+cmr on input line 3
-9.
+[1
+
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]) (./Q1.py [2]
+LaTeX Font Info:    Trying to load font information for OMS+cmr on input line 9
+5.
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2019/12/16 v2.5j Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <8> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 39.
-)
-(./poisson_distribution.txt)) (./2_vandermonde_matrix.tex
-(./2_vandermonde_matrix.py [2] [3]) [4] (./2_vandermonde_matrix.py)
-(./vandermonde_matrix.txt)
-<./my_vandermonde_sol_2a.png, id=241, 462.528pt x 346.896pt>
-File: ./my_vandermonde_sol_2a.png Graphic file (type png)
-<use ./my_vandermonde_sol_2a.png>
-Package pdftex.def Info: ./my_vandermonde_sol_2a.png  used on input line 21.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 95.
+) (./output_Q1.txt)
+(./Q1.py [3])
+<./hist.png, id=203, 462.528pt x 346.896pt>
+File: ./hist.png Graphic file (type png)
+<use ./hist.png>
+Package pdftex.def Info: ./hist.png  used on input line 50.
+(pdftex.def)             Requested size: 407.66833pt x 305.76697pt.
+<./my_solution_1b.png, id=206, 462.528pt x 346.896pt>
+File: ./my_solution_1b.png Graphic file (type png)
+<use ./my_solution_1b.png>
+Package pdftex.def Info: ./my_solution_1b.png  used on input line 65.
 (pdftex.def)             Requested size: 407.66833pt x 305.76697pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[5] (./2_vandermonde_matrix.py [6 <./my_vandermonde_sol_2a.png>])
-<./my_vandermonde_sol_2b.png, id=316, 462.528pt x 346.896pt>
-File: ./my_vandermonde_sol_2b.png Graphic file (type png)
-<use ./my_vandermonde_sol_2b.png>
-Package pdftex.def Info: ./my_vandermonde_sol_2b.png  used on input line 42.
-(pdftex.def)             Requested size: 407.66833pt x 305.76697pt.
-
-(./2_vandermonde_matrix.py [7 <./my_vandermonde_sol_2b.png>])
-<./my_vandermonde_sol_2c.png, id=333, 462.528pt x 346.896pt>
-File: ./my_vandermonde_sol_2c.png Graphic file (type png)
-<use ./my_vandermonde_sol_2c.png>
-Package pdftex.def Info: ./my_vandermonde_sol_2c.png  used on input line 62.
+[4 <./hist.png>] (./Q1.py [5 <./my_solution_1b.png>])
+<./my_solution_1c.png, id=250, 462.528pt x 346.896pt>
+File: ./my_solution_1c.png Graphic file (type png)
+<use ./my_solution_1c.png>
+Package pdftex.def Info: ./my_solution_1c.png  used on input line 92.
 (pdftex.def)             Requested size: 407.66833pt x 305.76697pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-(./2_vandermonde_matrix.py) (./vandermonde_matrix.txt)) [8]
+[6] (./Q1.py [7 <./my_solution_1c.png>]) (./output_Q1.txt)) (./Q2.tex (./Q2.py
+[8]) (./Q2.py) (./output_Q2.txt) [9] (./Q2.py) (./output_Q2.txt))
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 21.
- [9 <./my_vandermonde_sol_2c.png>]
+ [10]
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 21.
- (./pranger.aux)
+
+(./pranger.aux)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 21.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 21.
 Package rerunfilecheck Info: File `pranger.out' has not changed.
-(rerunfilecheck)             Checksum: FF86D525135E6781826DB44D966B8531;308.
+(rerunfilecheck)             Checksum: CF70694814BB6B999508822DD9BE42CF;447.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 21.
  ) 
 Here is how much of TeX's memory you used:
- 8158 strings out of 483183
- 118986 string characters out of 5966292
- 1056370 words of memory out of 5000000
- 22725 multiletter control sequences out of 15000+600000
+ 8281 strings out of 483183
+ 120208 string characters out of 5966292
+ 915370 words of memory out of 5000000
+ 22757 multiletter control sequences out of 15000+600000
  538357 words of font info for 45 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 37i,9n,42p,1663b,1949s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 37i,11n,42p,707b,1987s stack positions out of 5000i,500n,10000p,200000b,80000s
  </home/angel/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm0800.600
 pk></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></u
 sr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texl
 ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/te
-xmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/share/texlive/texmf-dis
-t/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts
-/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/
-public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/
-amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfont
-s/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cm
-r5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb><
-/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/sha
-re/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/share/texli
-ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/tex
-mf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/share/texlive/texmf-dist
-/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/
-type1/public/amsfonts/cm/cmsy8.pfb>
-Output written on pranger.pdf (9 pages, 1066909 bytes).
+xmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dis
+t/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts
+/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/
+public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/
+amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfont
+s/cm/cmr5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr
+7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></
+usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/shar
+e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texl
+ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
+Output written on pranger.pdf (10 pages, 732207 bytes).
 PDF statistics:
- 507 PDF objects out of 1000 (max. 8388607)
- 465 compressed objects within 5 object streams
- 298 named destinations out of 1000 (max. 500000)
- 64 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 610 PDF objects out of 1000 (max. 8388607)
+ 568 compressed objects within 6 object streams
+ 383 named destinations out of 1000 (max. 500000)
+ 80 words of extra memory for PDF output out of 10000 (max. 10000000)
 

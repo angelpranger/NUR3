@@ -1,0 +1,3 @@
+A is 9.194862922469179
+The analytical derivative of n at x=1 is -0.6253290521635682
+The numerical derivative of n at x=1 is  -0.6253290521635598

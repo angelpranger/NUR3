@@ -2,7 +2,7 @@
 import numpy as np
 import time
 
-k=1.38e-16 # erg/K
+k = 1.38e-16 # erg/K
 aB = 2e-13 # cm^3 / s
 A = 5e-10 # erg
 xi = 1e-15# /s
@@ -37,7 +37,7 @@ def bisection_root_step(f, a, b):
         a = c
     return a, b
 
-def false_position_method(f, a, b, max_iterations=50, target_abs=0.1, target_rel=1e-10, safeguards=False):
+def false_position_method(f, a, b, max_iterations=100, target_abs=0.1, target_rel=1e-10, safeguards=False):
     """Finds the root of a function using the false position method. 
     Stops after max_iterations or when the target accuracy is met.
     Returns interval a, b enclosing the root and the number of iterations used."""
@@ -53,14 +53,12 @@ def false_position_method(f, a, b, max_iterations=50, target_abs=0.1, target_rel
                 a, b = bisection_root_step(f, a, b)
             else: 
                 b = c
-                print('h')
         else:
             # Apply bisection if the interval has not reduced by at least half
             if ( safeguards & (c < 0.5*(a+b)) ):
                 a, b = bisection_root_step(f, a, b)
             else:
                 a = c
-                print('h')
         if (((b-a) < np.absolute(target_rel*a)) | ((b-a) < target_abs)):
             break
     return a, b, steps+1
@@ -86,10 +84,10 @@ print(f"The number of iterations used is {iterations}.")
 
 # Compute and time the equilibrium temperature (root) from equilibrium2 for different nH
 print(f"The equilibrium temperature (root) and estimated error are given.")
-print("n_e [cm$^{-3}$]     T_equilibrium [K]     estimated absolute error [K]     time [ms]     iterations")
+print("n_e [cm$^{-3}$]  T_equilibrium [K]  estimated absolute error [K]  time [ms]  iterations")
 for n_e in [1e-4, 1, 1e4]:
     start = time.time()
     func_class = Equilibrium2(n_e)
-    a, b, iterations = false_position_method(func_class.equilibrium2, 1, 1e15, target_rel=1e-10, safeguards=True)
+    a, b, iterations = false_position_method(func_class.equilibrium2, 1, 1e15, target_abs=1e-10, target_rel=1e-10, safeguards=True)
     end = time.time()
     print(f"{n_e}     {root_from_interval(func_class.equilibrium2, a, b)}     {b-a:.3}     {(end-start)*10**3:.3}     {iterations}")

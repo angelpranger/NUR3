@@ -1,46 +1,33 @@
-\section{Vandermonde matrix}
+\section{Heating and cooling in HII regions}
 
 The code of any shared modules for question 2 is given by:
-\lstinputlisting[firstnumber=1, firstline=1, lastline=125]{2_vandermonde_matrix.py}
+\lstinputlisting[firstnumber=1, firstline=1, lastline=71]{Q2.py}
+
+
 
 \subsection{a}
 
 The code used is given by:
-\lstinputlisting[firstnumber=127, firstline=127, lastline=167]{2_vandermonde_matrix.py}
+\lstinputlisting[firstnumber=75, firstline=75, lastline=81]{Q2.py}
 
-\lstinputlisting[firstline=1, lastline=6]{vandermonde_matrix.txt}
+We calculate the equilibrium temperature by finding the root of equilibrium1 (as given in the code).
+The functions are of order lower than quadratic, which is why we don't expect Brent's method
+to work optimally. Therefore, we choose the linear false position method combined with bisection to overcome slow convergence in very non-linear regions.
+This is implemented by using false position in general but switching to bisection whenever the bracket is not at least decreased by half in size, inspired
+by the safeguards used in Brent's method. The algorithm stops (in this case) when an absolute error less than 0.1 K is reached. The results are given here:
+\lstinputlisting[firstline=1, lastline=3]{output_Q2.txt}
 
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=0.9\linewidth]{./my_vandermonde_sol_2a.png}
-    \caption{The original data points $(x,y)$ together with the constructed 19-th degree polynomial
-    using the coefficients found by solving the system $Vc=y$ using the LU decomposition of the corresponding Vandermonde matrix are shown.
-    It is clear that the polynomial does not go through the original data points, as it lies way above them. However, the shape of the polynomial does somewhat seem to follow the original data points.
-    It might thus be the case that in particular the offset coefficient $c_0$ has a large error, causing the polynomial to be shifted this way. The lower panel shows the absolute difference between
-    the polynomial and the data points. As we can see, this offset is about 400 which is very large.}
-    \label{fig:2a}
-\end{figure}
+
 
 \subsection{b}
 
+The results for root finding of the function equilibrium2 (as given in the code) are given here. 
+We find that the higher the density, the lower the temperature, which is as expected.
+We further note that the error on the higher temperature is larger than the error on the lower temperatures, 
+which is because the algorithm stops at a relative target accuracy of $10^{-10}$.
+
 The code used is given by:
-\lstinputlisting[firstnumber=169, firstline=169, lastline=185]{2_vandermonde_matrix.py}
+\lstinputlisting[firstnumber=85, firstline=85, lastline=93]{Q2.py}
 
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=0.9\linewidth]{./my_vandermonde_sol_2b.png}
-    \caption{The previous resulting polynomial from LU decomposition is shown together with the Lagrange polynomial found using Neville's algorithm with M=20. We see that the Lagrange polynomial does closely follow the original
-    data points, with a small offset shown in the lower panel of about $10^{-14}$. The offset even crashes down for some x values, indicating that the Lagrange polynomial very accurately
-    follows the data points. This is to be expected, as Neville's algorithm uses direct linear interpolation on the data points, and when used on the data points themselves, the result is correct up to round off and machine error.
-    The method using the Vandermonde matrix, however, is a more indirect way of computing the polynomial with more intermediate calculations, which does not compute the polynomial values directly but the polynomial coefficients first.
-    As a small deviation in coefficient value can make a large difference in the polynomial values, this explains why the original LU-decomposition method gives polynomial values with a much larger error than the Lagrange polynomial from Neville's algorithm.}
-    \label{fig:2b}
-\end{figure}
-
-
-
-
-
-The functions are of order lower than quadratic, which is why we don't expect Brent's method
-to work optimally. Therefore, we choose the linear false position method combined with bisection to overcome slow convergence in very non-linear regions.
-The higher the density, the lower the temperature, which is as expected.
+The results:
+\lstinputlisting[firstline=4, lastline=8]{output_Q2.txt}
